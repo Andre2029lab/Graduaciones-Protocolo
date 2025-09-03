@@ -1,8 +1,6 @@
 package gui;
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +14,9 @@ import javax.swing.ImageIcon;
 import java.awt.Image;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class Login extends JFrame {
@@ -91,6 +92,35 @@ public class Login extends JFrame {
 		lblNewLabel.setBounds(0, 0, 217, 223);
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setOpaque(true);
+		
+		
+		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			System.exit(0);
+
+			}
+		});
+		ImageIcon icon1 =new ImageIcon (getClass().getResource("/Imagenes/times-square.png"));
+		int ancho1 = 85-70;
+		int alto1=21-13;
+		Image img1= icon1.getImage();
+		Image imgEscalada1 = img1.getScaledInstance(ancho1, alto1, Image.SCALE_SMOOTH);
+		btnSalir.setIcon(new ImageIcon(imgEscalada1));		
+		btnSalir.setBounds(356, 167, 109, 21);
+		contentPane.add(btnSalir);
+		
+		JButton btnIngresar = new JButton("Ingresar");
+		ImageIcon icon =new ImageIcon(getClass().getResource("/Imagenes/door-open.png"));
+		int ancho =85 -75;
+		int alto = 21 -14;
+		
+		Image img= icon.getImage();
+		Image imgEscalada = img.getScaledInstance(ancho, alto,Image.SCALE_SMOOTH);
+		btnIngresar.setIcon(new ImageIcon(imgEscalada));
+		btnIngresar.setBounds(248, 167, 98, 21);
+		contentPane.add(btnIngresar);
 	}
 			
 //se creo un metodo para ajustar la imagen al label 
