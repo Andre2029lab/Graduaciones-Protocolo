@@ -112,10 +112,16 @@ public class Login extends JFrame {
 		contentPane.add(btnSalir);
 		
 		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu form = new Menu();
+				form.setVisible(true);
+				Login.this.setVisible(false);
+			}
+		});
 		ImageIcon icon =new ImageIcon(getClass().getResource("/Imagenes/door-open.png"));
 		int ancho =85 -75;
-		int alto = 21 -14;
-		
+		int alto = 21 -14;	
 		Image img= icon.getImage();
 		Image imgEscalada = img.getScaledInstance(ancho, alto,Image.SCALE_SMOOTH);
 		btnIngresar.setIcon(new ImageIcon(imgEscalada));
