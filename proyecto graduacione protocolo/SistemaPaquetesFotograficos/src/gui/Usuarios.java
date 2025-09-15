@@ -212,7 +212,13 @@ public class Usuarios extends JFrame implements ActionListener {
 		}
 	}
 	protected void do_btnNewButton_1_actionPerformed(ActionEvent e) {
-
+		txtS.setText("");
+		Usuario us=au.Buscar(LeerNroDoc());
+		if(us!=null) {	
+			us.setCorreo(NombreCorreo());
+			us.setNom(NombreCompleto());
+			Listado();
+		}
 	}
 	protected void do_btnNewButton_3_1_actionPerformed(ActionEvent e) {
 		
