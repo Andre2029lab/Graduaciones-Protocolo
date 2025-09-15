@@ -59,12 +59,12 @@ public class Usuarios extends JFrame implements ActionListener {
 		
 		btnNewButton_3_1 = new JButton("Adicionar");
 		btnNewButton_3_1.addActionListener(this);
-		btnNewButton_3_1.setBounds(153, 426, 109, 23);
+		btnNewButton_3_1.setBounds(153, 426, 138, 23);
 		contentPane.add(btnNewButton_3_1);
 		
 		btnNewButton_3 = new JButton("Buscar");
 		btnNewButton_3.addActionListener(this);
-		btnNewButton_3.setBounds(153, 404, 109, 23);
+		btnNewButton_3.setBounds(153, 404, 138, 23);
 		contentPane.add(btnNewButton_3);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nro Documento:");
@@ -117,9 +117,9 @@ public class Usuarios extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel_6);
 		
 		JComboBox comboBox = new JComboBox();
-		JComboBox<String> comboRol = new JComboBox<>(new String[] {"Administrador", "Empleado"});
-		comboRol.setBounds(35, 313, 146, 21);
-		contentPane.add(comboRol);
+		JComboBox<String> cmbrol = new JComboBox<>(new String[] {"Administrador", "Empleado"});
+		cmbrol.setBounds(35, 313, 146, 21);
+		contentPane.add(cmbrol);
 		contentPane.add(comboBox);
 		
 		JLabel lblNewLabel_7 = new JLabel("Estado:");
@@ -127,24 +127,24 @@ public class Usuarios extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel_7);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		JComboBox<String> comboEstado = new JComboBox<>(new String[] {"Activo", "Inactivo"});
-		comboEstado.setBounds(35, 367, 146, 21);
-		contentPane.add(comboEstado);
+		JComboBox<String> cmbestado = new JComboBox<>(new String[] {"Activo", "Inactivo"});
+		cmbestado.setBounds(35, 367, 146, 21);
+		contentPane.add(cmbestado);
 		contentPane.add(comboBox_1);
 		
 		btnNewButton = new JButton("Listar");	
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(20, 405, 123, 21);
+		btnNewButton.setBounds(0, 405, 143, 21);
 		contentPane.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("Editar");
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(20, 427, 123, 21);
+		btnNewButton_1.setBounds(0, 427, 143, 21);
 		contentPane.add(btnNewButton_1);
 		
 		btnNewButton_2 = new JButton("Eliminar");
 		btnNewButton_2.addActionListener(this);
-		btnNewButton_2.setBounds(73, 445, 123, 21);
+		btnNewButton_2.setBounds(73, 458, 123, 21);
 		contentPane.add(btnNewButton_2);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Detalle Usuario");
@@ -212,7 +212,13 @@ public class Usuarios extends JFrame implements ActionListener {
 		}
 	}
 	protected void do_btnNewButton_1_actionPerformed(ActionEvent e) {
-
+		txtS.setText("");
+		Usuario us=au.Buscar(LeerNroDoc());
+		if(us!=null) {	
+			us.setCorreo(NombreCorreo());
+			us.setNom(NombreCompleto());
+			Listado();
+		}
 	}
 	protected void do_btnNewButton_3_1_actionPerformed(ActionEvent e) {
 		
