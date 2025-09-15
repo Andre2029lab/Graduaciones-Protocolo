@@ -59,12 +59,12 @@ public class Usuarios extends JFrame implements ActionListener {
 		
 		btnNewButton_3_1 = new JButton("Adicionar");
 		btnNewButton_3_1.addActionListener(this);
-		btnNewButton_3_1.setBounds(153, 426, 109, 23);
+		btnNewButton_3_1.setBounds(153, 426, 123, 23);
 		contentPane.add(btnNewButton_3_1);
 		
 		btnNewButton_3 = new JButton("Buscar");
 		btnNewButton_3.addActionListener(this);
-		btnNewButton_3.setBounds(153, 404, 109, 23);
+		btnNewButton_3.setBounds(153, 404, 123, 23);
 		contentPane.add(btnNewButton_3);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nro Documento:");
