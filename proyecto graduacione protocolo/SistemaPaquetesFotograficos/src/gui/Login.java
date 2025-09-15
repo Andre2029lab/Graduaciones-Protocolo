@@ -129,16 +129,10 @@ public class Login extends JFrame {
 		contentPane.add(btnIngresar);
 	}
 			
-//se creo un metodo para ajustar la imagen al label 
 		private void setImageToLabel(JLabel label , String imagePath) {
-			// Crea un objeto ImageIcon cargando la imagen desde los recursos del proyecto.
 			ImageIcon icon = new ImageIcon(getClass().getResource(imagePath));
-			// Obtiene el objeto Image del ImageIcon.
-			// Esto es necesario porque para escalar la imagen se trabaja con Image, no directamente con ImageIcon.
 	        Image img = icon.getImage();
-	     // Escala la imagen al tamaño actual del JLabel (ancho y alto).
 	        Image imgEscalada = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
-	     // Crea un nuevo ImageIcon a partir de la imagen escalada y lo asigna al JLabel.
 	        label.setIcon(new ImageIcon(imgEscalada));
 		
 		}
