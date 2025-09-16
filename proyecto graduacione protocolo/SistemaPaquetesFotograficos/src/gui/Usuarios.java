@@ -37,13 +37,13 @@ public class Usuarios extends JFrame implements ActionListener {
 	private JTextField txtcontr;
 	private JTextField txtconfcont;
 	private Menu menu;
-	private JButton btnNewButton_2;
+	private JButton btnEliminar;
 	private JScrollPane scrollPane_1;
 	private JTextArea txtS;
-	private JButton btnNewButton;
+	private JButton btnListar;
 	private JTextArea textArea;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_3_1;
+	private JButton btnEditar;
+	private JButton btnAdicionar;
 	
 	public Usuarios(Menu menu) throws HeadlessException {
 		
@@ -57,15 +57,15 @@ public class Usuarios extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnNewButton_3_1 = new JButton("Adicionar");
-		btnNewButton_3_1.addActionListener(this);
-		btnNewButton_3_1.setBounds(153, 426, 138, 23);
-		contentPane.add(btnNewButton_3_1);
+		btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(this);
+		btnAdicionar.setBounds(153, 426, 138, 23);
+		contentPane.add(btnAdicionar);
 		
-		btnNewButton_3 = new JButton("Buscar");
-		btnNewButton_3.addActionListener(this);
-		btnNewButton_3.setBounds(153, 404, 138, 23);
-		contentPane.add(btnNewButton_3);
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
+		btnBuscar.setBounds(153, 404, 138, 23);
+		contentPane.add(btnBuscar);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nro Documento:");
 		lblNewLabel_1.setBounds(25, 39, 123, 13);
@@ -132,20 +132,20 @@ public class Usuarios extends JFrame implements ActionListener {
 		contentPane.add(cmbestado);
 		contentPane.add(comboBox_1);
 		
-		btnNewButton = new JButton("Listar");	
-		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(0, 405, 143, 21);
-		contentPane.add(btnNewButton);
+		btnListar = new JButton("Listar");	
+		btnListar.addActionListener(this);
+		btnListar.setBounds(0, 405, 143, 21);
+		contentPane.add(btnListar);
 		
-		btnNewButton_1 = new JButton("Editar");
-		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(0, 427, 143, 21);
-		contentPane.add(btnNewButton_1);
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(this);
+		btnEditar.setBounds(0, 427, 143, 21);
+		contentPane.add(btnEditar);
 		
-		btnNewButton_2 = new JButton("Eliminar");
-		btnNewButton_2.addActionListener(this);
-		btnNewButton_2.setBounds(73, 458, 123, 21);
-		contentPane.add(btnNewButton_2);
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
+		btnEliminar.setBounds(73, 458, 123, 21);
+		contentPane.add(btnEliminar);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Detalle Usuario");
 		lblNewLabel_1_1.setFont(new Font("Arial Black", Font.PLAIN, 16));
@@ -180,24 +180,26 @@ public class Usuarios extends JFrame implements ActionListener {
 		});
 	}
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton_3) {
+		if (e.getSource() == btnBuscar) {
 			do_btnNewButton_3_actionPerformed(e);
 		}
-		if (e.getSource() == btnNewButton_3_1) {
+		if (e.getSource() == btnAdicionar) {
 			do_btnNewButton_3_1_actionPerformed(e);
 		}
-		if (e.getSource() == btnNewButton_1) {
+		if (e.getSource() == btnEditar) {
 			do_btnNewButton_1_actionPerformed(e);
 		}
-		if (e.getSource() == btnNewButton) {
+		if (e.getSource() == btnListar) {
 			do_btnNewButton_actionPerformed(e);
 		}
-		if (e.getSource() == btnNewButton_2) {
+		if (e.getSource() == btnEliminar) {
 			do_btnNewButton_2_actionPerformed(e);
 		}
 	}
 	protected void do_btnNewButton_2_actionPerformed(ActionEvent e) {
-		
+		Usuario us=au.Buscar(LeerNroDoc());
+		if(us!=null) au.Eliminar(us);
+		else JOptionPane.showMessageDialog(this, "No existe este Número de Documento");
 	}
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
 		txtS.setText("");
@@ -221,14 +223,28 @@ public class Usuarios extends JFrame implements ActionListener {
 		}
 	}
 	protected void do_btnNewButton_3_1_actionPerformed(ActionEvent e) {
+		Usuario us= au.Buscar(LeerNroDoc());
+		if(us==null) {
+			Usuario u1=  new Usuario(LeerNroDoc(), NombreCorreo(), NombreCompleto(), Contraseña());
+			au.Adicionar(u1);
+		}
+		else JOptionPane.showMessageDialog(this, "Número de Documento ya existente");
 		
 	}
-	private JButton btnNewButton_3;
+	private JButton btnBuscar;
 	
 	ArglUsuarios au= new ArglUsuarios();
 	protected void do_btnNewButton_3_actionPerformed(ActionEvent e) {
-
+		txtS.setText("");
+		Usuario us= au.Buscar(LeerNroDoc());
+		if(us!=null) {
+			txtS.append("Nro.Documento\tCorreo\t");
+			txtS.append("\n"+us.getDoc()+"\t"+us.getCorreo()+"\t"+us.getNom());
+		}
+		else JOptionPane.showMessageDialog(this,"No existe este Número de Documento");
 	}
+
+	
 	
 	int LeerNroDoc() {
 		return Integer.parseInt(txtnrodocumento.getText());
