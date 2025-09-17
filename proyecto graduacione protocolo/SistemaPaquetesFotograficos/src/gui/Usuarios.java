@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import java.awt.Checkbox;
 import javax.swing.JComboBox;
 import javax.crypto.AEADBadTagException;
+import javax.print.Doc;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -161,14 +162,14 @@ public class Usuarios extends JFrame implements ActionListener {
 		lblNewLabel.setOpaque(true);
 		
 		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(301, 0, 271, 479);
+		scrollPane_1.setBounds(301, 0, 581, 479);
 		contentPane.add(scrollPane_1);
 		
 		txtS = new JTextArea();
 		scrollPane_1.setViewportView(txtS);
 		
 		textArea = new JTextArea();
-		textArea.setBounds(569, -11, 301, 488);
+		textArea.setBounds(569, 0, 313, 477);
 		contentPane.add(textArea);
 		
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -198,8 +199,13 @@ public class Usuarios extends JFrame implements ActionListener {
 	}
 	protected void do_btnNewButton_2_actionPerformed(ActionEvent e) {
 		Usuario us=au.Buscar(LeerNroDoc());
-		if(us!=null) au.Eliminar(us);
-		else JOptionPane.showMessageDialog(this, "No existe este Número de Documento");
+		try {
+			if(us!=null) au.Eliminar(us);
+			 
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(this, "No existe este Número de Documento");
+			
+		}
 	}
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
 		txtS.setText("");
@@ -207,20 +213,36 @@ public class Usuarios extends JFrame implements ActionListener {
 		txtS.append("\nCantidad de usuarios: "+au.Tamaño());
 	}
 	void Listado() {
-		txtS.append("Nro.Documento\tCorreo\tNombre");
+		txtS.append("Nro.Documento\tCorreo\t\tNombre\n");
 		for (int i=0; i < au.Tamaño(); i++) {
 			txtS.append("\n"+au.Obtener(i).getDoc()+"\t"+au.Obtener(i).getCorreo()+"\t"+
 		    au.Obtener(i).getNom());
 		}
 	}
 	protected void do_btnNewButton_1_actionPerformed(ActionEvent e) {
-		txtS.setText("");
-		Usuario us=au.Buscar(LeerNroDoc());
-		if(us!=null) {	
-			us.setCorreo(NombreCorreo());
-			us.setNom(NombreCompleto());
-			Listado();
-		}
+		try {
+			txtS.setText("");
+			Usuario us=au.Buscar(LeerNroDoc());
+			if(us!=null) {	
+				if(NombreCorreo().isEmpty() || NombreCompleto().isEmpty()) {
+					JOptionPane.showMessageDialog(null,"⚠️ Los campos de correo y nombre no pueden estar vacios.");
+					return;
+				}
+				 us.setCorreo(NombreCorreo());
+		         us.setNom(NombreCompleto());
+		         Listado();
+		         JOptionPane.showMessageDialog(null,"✅ Usuario con documento "+LeerNroDoc()+" actualizado correctamente.");  
+			}
+			else {
+				JOptionPane.showMessageDialog(null,"❌ No se encontró ningún usuario con documento " + LeerNroDoc() + ".\"");
+			}
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(null,"❌ El número de documento debe ser un valor numérico.");
+		}catch (Exception ex) { 
+			JOptionPane.showMessageDialog(null,"⚠️ Ocurrió un error al actualizar: " + ex.getMessage());
+	        ex.printStackTrace(); // 
+	    }
+		
 	}
 	protected void do_btnNewButton_3_1_actionPerformed(ActionEvent e) {
 		Usuario us= au.Buscar(LeerNroDoc());
