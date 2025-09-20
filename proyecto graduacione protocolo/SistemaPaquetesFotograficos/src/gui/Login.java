@@ -4,7 +4,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Clases.Usuario;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
 import java.awt.Color;
@@ -113,12 +117,42 @@ public class Login extends JFrame {
 		
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Menu form = new Menu();
-				form.setVisible(true);
-				Login.this.setVisible(false);
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		            String correo = textField.getText().trim();
+		            String contr = new String(passwordField.getPassword()).trim();
+
+		            if(correo.isEmpty() || contr.isEmpty()) {
+		                throw new IllegalArgumentException("Correo y contraseña no pueden estar vacíos");
+		            }
+
+		            if(!correo.matches("[a-zA-Z0-9@.]+")) {
+		                throw new IllegalArgumentException("Correo solo puede contener letras, números, @ y .");
+		            }
+
+		            if(!contr.matches("[a-zA-Z0-9]+")) {
+		                throw new IllegalArgumentException("Contraseña solo puede contener letras y números");
+		            }
+
+		            Usuario usuario = new Usuario(correo, contr);
+		            usuario.registrarUsuario(correo, contr);
+
+		            JOptionPane.showMessageDialog(null,
+		                "Usuario creado correctamente:\nCorreo: " + usuario.getCorreo());
+
+		            Menu form = new Menu();
+		            form.setVisible(true);
+		            Login.this.setVisible(false);
+
+		        } catch (Exception ex) {
+		            JOptionPane.showMessageDialog(null,
+		                "Error al crear usuario: " + ex.getMessage());
+		        }
+		    }
 		});
+
+
+			
 		ImageIcon icon =new ImageIcon(getClass().getResource("/Imagenes/door-open.png"));
 		int ancho =85 -75;
 		int alto = 21 -14;	
