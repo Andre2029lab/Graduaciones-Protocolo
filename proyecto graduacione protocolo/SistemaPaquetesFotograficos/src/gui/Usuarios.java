@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import java.awt.Checkbox;
 import javax.swing.JComboBox;
 import javax.crypto.AEADBadTagException;
+import javax.print.Doc;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.HeadlessException;
@@ -37,13 +38,13 @@ public class Usuarios extends JFrame implements ActionListener {
 	private JTextField txtcontr;
 	private JTextField txtconfcont;
 	private Menu menu;
-	private JButton btnNewButton_2;
+	private JButton btnEliminar;
 	private JScrollPane scrollPane_1;
 	private JTextArea txtS;
-	private JButton btnNewButton;
+	private JButton btnListar;
 	private JTextArea textArea;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_3_1;
+	private JButton btnEditar;
+	private JButton btnAdicionar;
 	
 	public Usuarios(Menu menu) throws HeadlessException {
 		
@@ -57,15 +58,15 @@ public class Usuarios extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		btnNewButton_3_1 = new JButton("Adicionar");
-		btnNewButton_3_1.addActionListener(this);
-		btnNewButton_3_1.setBounds(153, 426, 109, 23);
-		contentPane.add(btnNewButton_3_1);
+		btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(this);
+		btnAdicionar.setBounds(153, 426, 138, 23);
+		contentPane.add(btnAdicionar);
 		
-		btnNewButton_3 = new JButton("Buscar");
-		btnNewButton_3.addActionListener(this);
-		btnNewButton_3.setBounds(153, 404, 109, 23);
-		contentPane.add(btnNewButton_3);
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(this);
+		btnBuscar.setBounds(153, 404, 138, 23);
+		contentPane.add(btnBuscar);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nro Documento:");
 		lblNewLabel_1.setBounds(25, 39, 123, 13);
@@ -117,9 +118,9 @@ public class Usuarios extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel_6);
 		
 		JComboBox comboBox = new JComboBox();
-		JComboBox<String> comboRol = new JComboBox<>(new String[] {"Administrador", "Empleado"});
-		comboRol.setBounds(35, 313, 146, 21);
-		contentPane.add(comboRol);
+		JComboBox<String> cmbrol = new JComboBox<>(new String[] {"Administrador", "Empleado"});
+		cmbrol.setBounds(35, 313, 146, 21);
+		contentPane.add(cmbrol);
 		contentPane.add(comboBox);
 		
 		JLabel lblNewLabel_7 = new JLabel("Estado:");
@@ -127,25 +128,25 @@ public class Usuarios extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel_7);
 		
 		JComboBox comboBox_1 = new JComboBox();
-		JComboBox<String> comboEstado = new JComboBox<>(new String[] {"Activo", "Inactivo"});
-		comboEstado.setBounds(35, 367, 146, 21);
-		contentPane.add(comboEstado);
+		JComboBox<String> cmbestado = new JComboBox<>(new String[] {"Activo", "Inactivo"});
+		cmbestado.setBounds(35, 367, 146, 21);
+		contentPane.add(cmbestado);
 		contentPane.add(comboBox_1);
 		
-		btnNewButton = new JButton("Listar");	
-		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(20, 405, 123, 21);
-		contentPane.add(btnNewButton);
+		btnListar = new JButton("Listar");	
+		btnListar.addActionListener(this);
+		btnListar.setBounds(0, 405, 143, 21);
+		contentPane.add(btnListar);
 		
-		btnNewButton_1 = new JButton("Editar");
-		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(20, 427, 123, 21);
-		contentPane.add(btnNewButton_1);
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(this);
+		btnEditar.setBounds(0, 427, 143, 21);
+		contentPane.add(btnEditar);
 		
-		btnNewButton_2 = new JButton("Eliminar");
-		btnNewButton_2.addActionListener(this);
-		btnNewButton_2.setBounds(73, 445, 123, 21);
-		contentPane.add(btnNewButton_2);
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(this);
+		btnEliminar.setBounds(73, 458, 123, 21);
+		contentPane.add(btnEliminar);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Detalle Usuario");
 		lblNewLabel_1_1.setFont(new Font("Arial Black", Font.PLAIN, 16));
@@ -161,14 +162,14 @@ public class Usuarios extends JFrame implements ActionListener {
 		lblNewLabel.setOpaque(true);
 		
 		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(301, 0, 271, 479);
+		scrollPane_1.setBounds(301, 0, 581, 479);
 		contentPane.add(scrollPane_1);
 		
 		txtS = new JTextArea();
 		scrollPane_1.setViewportView(txtS);
 		
 		textArea = new JTextArea();
-		textArea.setBounds(569, -11, 301, 488);
+		textArea.setBounds(569, 0, 313, 477);
 		contentPane.add(textArea);
 		
 		addWindowListener(new java.awt.event.WindowAdapter() {
@@ -180,24 +181,31 @@ public class Usuarios extends JFrame implements ActionListener {
 		});
 	}
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton_3) {
+		if (e.getSource() == btnBuscar) {
 			do_btnNewButton_3_actionPerformed(e);
 		}
-		if (e.getSource() == btnNewButton_3_1) {
+		if (e.getSource() == btnAdicionar) {
 			do_btnNewButton_3_1_actionPerformed(e);
 		}
-		if (e.getSource() == btnNewButton_1) {
+		if (e.getSource() == btnEditar) {
 			do_btnNewButton_1_actionPerformed(e);
 		}
-		if (e.getSource() == btnNewButton) {
+		if (e.getSource() == btnListar) {
 			do_btnNewButton_actionPerformed(e);
 		}
-		if (e.getSource() == btnNewButton_2) {
+		if (e.getSource() == btnEliminar) {
 			do_btnNewButton_2_actionPerformed(e);
 		}
 	}
 	protected void do_btnNewButton_2_actionPerformed(ActionEvent e) {
-		
+		Usuario us=au.Buscar(LeerNroDoc());
+		try {
+			if(us!=null) au.Eliminar(us);
+			 
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(this, "No existe este Número de Documento");
+			
+		}
 	}
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
 		txtS.setText("");
@@ -205,30 +213,60 @@ public class Usuarios extends JFrame implements ActionListener {
 		txtS.append("\nCantidad de usuarios: "+au.Tamaño());
 	}
 	void Listado() {
-		txtS.append("Nro.Documento\tCorreo\tNombre");
+		txtS.append("Nro.Documento\tCorreo\t\tNombre\n");
 		for (int i=0; i < au.Tamaño(); i++) {
 			txtS.append("\n"+au.Obtener(i).getDoc()+"\t"+au.Obtener(i).getCorreo()+"\t"+
 		    au.Obtener(i).getNom());
 		}
 	}
 	protected void do_btnNewButton_1_actionPerformed(ActionEvent e) {
-		txtS.setText("");
-		Usuario us=au.Buscar(LeerNroDoc());
-		if(us!=null) {	
-			us.setCorreo(NombreCorreo());
-			us.setNom(NombreCompleto());
-			Listado();
-		}
-	}
-	protected void do_btnNewButton_3_1_actionPerformed(ActionEvent e) {
+		try {
+			txtS.setText("");
+			Usuario us=au.Buscar(LeerNroDoc());
+			if(us!=null) {	
+				if(NombreCorreo().isEmpty() || NombreCompleto().isEmpty()) {
+					JOptionPane.showMessageDialog(null,"⚠️ Los campos de correo y nombre no pueden estar vacios.");
+					return;
+				}
+				 us.setCorreo(NombreCorreo());
+		         us.setNom(NombreCompleto());
+		         Listado();
+		         JOptionPane.showMessageDialog(null,"✅ Usuario con documento "+LeerNroDoc()+" actualizado correctamente.");  
+			}
+			else {
+				JOptionPane.showMessageDialog(null,"❌ No se encontró ningún usuario con documento " + LeerNroDoc() + ".\"");
+			}
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(null,"❌ El número de documento debe ser un valor numérico.");
+		}catch (Exception ex) { 
+			JOptionPane.showMessageDialog(null,"⚠️ Ocurrió un error al actualizar: " + ex.getMessage());
+	        ex.printStackTrace(); // 
+	    }
 		
 	}
-	private JButton btnNewButton_3;
+	protected void do_btnNewButton_3_1_actionPerformed(ActionEvent e) {
+		Usuario us= au.Buscar(LeerNroDoc());
+		if(us==null) {
+			Usuario u1=  new Usuario(LeerNroDoc(), NombreCorreo(), NombreCompleto(), Contraseña());
+			au.Adicionar(u1);
+		}
+		else JOptionPane.showMessageDialog(this, "Número de Documento ya existente");
+		
+	}
+	private JButton btnBuscar;
 	
 	ArglUsuarios au= new ArglUsuarios();
 	protected void do_btnNewButton_3_actionPerformed(ActionEvent e) {
-
+		txtS.setText("");
+		Usuario us= au.Buscar(LeerNroDoc());
+		if(us!=null) {
+			txtS.append("Nro.Documento\tCorreo\t");
+			txtS.append("\n"+us.getDoc()+"\t"+us.getCorreo()+"\t"+us.getNom());
+		}
+		else JOptionPane.showMessageDialog(this,"No existe este Número de Documento");
 	}
+
+	
 	
 	int LeerNroDoc() {
 		return Integer.parseInt(txtnrodocumento.getText());
