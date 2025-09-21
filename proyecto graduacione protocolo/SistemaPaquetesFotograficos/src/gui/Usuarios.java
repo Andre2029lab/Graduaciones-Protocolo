@@ -198,15 +198,19 @@ public class Usuarios extends JFrame implements ActionListener {
 		}
 	}
 	protected void do_btnNewButton_2_actionPerformed(ActionEvent e) {
-		Usuario us=au.Buscar(LeerNroDoc());
 		try {
-			if(us!=null) au.Eliminar(us);
-			 
-		} catch (Exception e2) {
-			JOptionPane.showMessageDialog(this, "No existe este Número de Documento");
-			
-		}
+	        Usuario us = au.Buscar(LeerNroDoc());
+	        if (us != null) {
+	            au.Eliminar(us);
+	            JOptionPane.showMessageDialog(this, "Usuario eliminado correctamente");
+	        } else {
+	            JOptionPane.showMessageDialog(this, "No existe este Número de Documento");
+	        }
+	    } catch (Exception ex) {
+	        JOptionPane.showMessageDialog(this, "Error al eliminar: " + ex.getMessage());
+	    }
 	}
+		
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
 		txtS.setText("");
 		Listado();
