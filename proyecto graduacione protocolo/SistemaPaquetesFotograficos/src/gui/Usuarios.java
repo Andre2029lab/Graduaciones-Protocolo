@@ -229,21 +229,21 @@ public class Usuarios extends JFrame implements ActionListener {
 			Usuario us=au.Buscar(LeerNroDoc());
 			if(us!=null) {	
 				if(NombreCorreo().isEmpty() || NombreCompleto().isEmpty()) {
-					JOptionPane.showMessageDialog(null,"⚠️ Los campos de correo y nombre no pueden estar vacios.");
+					JOptionPane.showMessageDialog(null," Los campos de correo y nombre no pueden estar vacios.");
 					return;
 				}
 				 us.setCorreo(NombreCorreo());
 		         us.setNom(NombreCompleto());
 		         Listado();
-		         JOptionPane.showMessageDialog(null,"✅ Usuario con documento "+LeerNroDoc()+" actualizado correctamente.");  
+		         JOptionPane.showMessageDialog(null," Usuario con documento "+LeerNroDoc()+" actualizado correctamente.");  
 			}
 			else {
-				JOptionPane.showMessageDialog(null,"❌ No se encontró ningún usuario con documento " + LeerNroDoc() + ".\"");
+				JOptionPane.showMessageDialog(null," No se encontró ningún usuario con documento " + LeerNroDoc() + ".\"");
 			}
 		} catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(null,"❌ El número de documento debe ser un valor numérico.");
+			JOptionPane.showMessageDialog(null," El número de documento debe ser un valor numérico.");
 		}catch (Exception ex) { 
-			JOptionPane.showMessageDialog(null,"⚠️ Ocurrió un error al actualizar: " + ex.getMessage());
+			JOptionPane.showMessageDialog(null," Ocurrió un error al actualizar: " + ex.getMessage());
 	        ex.printStackTrace(); // 
 	    }
 		
